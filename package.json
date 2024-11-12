@@ -1,0 +1,27 @@
+{
+  "name": "kanbas-node-server-app",
+  "version": "1.0.0",
+  "description": "Node.js HTTP server for Kanbas App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbasswerner/kanbas-node-server-app.git"
+  },
+  "keywords": [
+    "Node",
+    "REST",
+    "Server",
+    "HTTP",
+    "Web",
+    "Dev"
+  ],
+  "author": "Paula Basswerner",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pbasswerner/kanbas-node-server-app/issues"
+  },
+  "homepage": "https://github.com/pbasswerner/kanbas-node-server-app#readme"
+}

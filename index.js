@@ -1,12 +1,47 @@
-//const express = require('express');// equivalent to import
-import express from 'express';// import express from 'express'
-import Hello from './Hello.js';
-import Lab5 from './Lab5/index.js';
-import cors from 'cors';
+import session from "express-session";
+import express from "express";
+import Hello from "./Hello.js";
+import Lab5 from "./Lab5/index.js";
+import UserRoutes from "./Kanbas/Users/routes.js";
+import courses from "./Kanbas/Database/courses.js";
+import cors from "cors";
+//import mongoose from "mongoose";
+import "dotenv/config";
+import CourseRoutes from "./Kanbas/Courses/routes.js";
+import ModuleRoutes from "./Kanbas/Modules/routes.js";
 
-const app = express(); // create new express instance
-app.use(cors());
+// const CONNECTION_STRING =
+//     process.env.MONGO_CONNECTION_STRING ||
+//     "mongodb://127.0.0.1:27017/kanbas-01-fa24";
+// mongoose.connect(CONNECTION_STRING);
+
+const app = express();
+app.use(
+    cors({
+        credentials: true,
+        origin: process.env.NETLIFY_URL || "http://localhost:3000",
+    })
+);
+const sessionOptions = {
+    secret: process.env.SESSION_SECRET || "kanbas",
+    resave: false,
+    saveUninitialized: false,
+};
+if (process.env.NODE_ENV !== "development") {
+    sessionOptions.proxy = true;
+    sessionOptions.cookie = {
+        sameSite: "none",
+        secure: true,
+        domain: process.env.NODE_SERVER_DOMAIN,
+    };
+}
+app.use(session(sessionOptions));
 app.use(express.json());
-Hello(app)
-Lab5(app)
-app.listen(process.env.PORT || 4000)// listen to http://localhost:4
+
+Hello(app);
+Lab5(app);
+UserRoutes(app);
+CourseRoutes(app);
+ModuleRoutes(app);
+
+app.listen(process.env.PORT || 4000);
